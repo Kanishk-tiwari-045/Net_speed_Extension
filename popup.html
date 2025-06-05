@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 320px;
+            padding: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .network-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .network-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .network-5g { background-color: #4CAF50; }
+        .network-4g { background-color: #FF9800; }
+        .network-unknown { background-color: #9E9E9E; }
+
+        .network-type {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .paused-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 16px;
+            font-size: 12px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .controls-full {
+            grid-column: 1 / -1;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .primary:hover {
+            background-color: #45a049;
+        }
+
+        .danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .danger:hover {
+            background-color: #da190b;
+        }
+
+        .secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .settings {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .settings h3 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 4px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .status-info {
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .feedback {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Smart Download Manager</h1>
+    </div>
+
+    <div class="status-card">
+        <div class="network-display">
+            <div style="display: flex; align-items: center;">
+                <div id="networkIndicator" class="network-indicator network-unknown"></div>
+                <span id="networkType" class="network-type">UNKNOWN</span>
+            </div>
+            <div id="pausedCount" class="paused-count">0 paused</div>
+        </div>
+        
+        <div class="status-info">
+            Status: <span id="status">Loading...</span>
+        </div>
+        
+        <div class="status-info">
+            Speed: <span id="networkDetails">Unknown</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="toggleBtn" class="primary">Enable</button>
+        <button id="forceCheckBtn" class="secondary">Check Speed</button>
+        <button id="pauseBtn" class="secondary">Pause All</button>
+        <button id="resumeBtn" class="secondary">Resume All</button>
+    </div>
+
+    <div class="settings">
+        <h3>Speed Threshold</h3>
+        <div class="setting-row">
+            <label>Threshold (Mbps):</label>
+            <input type="number" id="speedThreshold" value="0.7" step="0.1" min="0.1" max="10">
+        </div>
+        <button id="saveSettings" class="primary controls-full">Save Settings</button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
